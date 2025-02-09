@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สุ่มตัวเลขออนไลน์</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
+        input { padding: 8px; margin: 5px; }
+        button { padding: 10px; background-color: #28a745; color: white; border: none; cursor: pointer; }
+        button:hover { background-color: #218838; }
+        #result { margin-top: 20px; font-size: 20px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <h2>สุ่มตัวเลขจาก น้อย ไป มาก</h2>
+    <label>ค่าต่ำสุด: <input type="number" id="min" value="1"></label>
+    <label>ค่าสูงสุด: <input type="number" id="max" value="100"></label>
+    <label>จำนวนตัวเลขที่ต้องการ: <input type="number" id="count" value="5"></label>
+    <br>
+    <button onclick="generateNumbers()">สุ่มตัวเลข</button>
+    
+    <div id="result"></div>
+
+    <script>
+        function generateNumbers() {
+            let min = parseInt(document.getElementById("min").value);
+            let max = parseInt(document.getElementById("max").value);
+            let count = parseInt(document.getElementById("count").value);
+
+            if (min >= max) {
+                alert("ค่าต่ำสุดต้องน้อยกว่าค่าสูงสุด!");
+                return;
+            }
+
+            if (count <= 0) {
+                alert("จำนวนตัวเลขต้องมากกว่า 0!");
+                return;
+            }
+
+            let numbers = [];
+            for (let i = min; i <= max; i++) {
+                numbers.push(i);
+            }
+
+            let result = [];
+            for (let i = 0; i < count && numbers.length > 0; i++) {
+                let randomIndex = Math.floor(Math.random() * numbers.length);
+                result.push(numbers[randomIndex]);
+                numbers.splice(randomIndex, 1);
+            }
+
+            document.getElementById("result").innerHTML = "ผลลัพธ์: " + result.sort((a, b) => a - b).join(", ");
+        }
+    </script>
+
+</body>
+</html>
